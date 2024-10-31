@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ -z "$1" ];then n=1;else n=$1;fi
+
+if screen -list | grep -q "$n"; then
+    echo "Screen session $n exists. Detaching and then reattaching..."
+    screen -D -R $n
+else
+    echo "Screen session $n does not exist. Creating a new one..."
+    case $SHELL in
+      "/usr/bin/zsh") screen -S $n ;;
+      *) screen -S $n zsh ;;
+    esac
+fi
