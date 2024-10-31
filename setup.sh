@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd $(dirname $0)
-H=$(pwd)/home
 
 startask (){
 printf 'Hi there!\n'
@@ -11,18 +9,27 @@ printf 'Check the script before you run it!\n\n'
 printf 'Ctrl+C to exit. Enter to continue.\n'
 read -r
 }
+checkcommand (){
+  if ! command -v $1 >/dev/null 2>&1
+then
+    echo "Error: \"$1\" could not be found, please install it first."
+    exit 1
+fi
+}
+
 
 case $1 in
   "-f")sleep 0;;
   *)startask ;;
 esac
+
+
 set -e
+cd $(dirname $0)
+H=$(pwd)/home
 
 
 echo "Checking dependencies."
-checkcommand (){
-  which $1 > /dev/null 2>&1 || { echo "Error: please install \"$1\"." && exit 1 ; }
-}
 for i in zsh nvim screen vifm;do checkcommand $i; done
 
 
