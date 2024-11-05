@@ -5,7 +5,7 @@ startask (){
 printf 'Hi there!\n'
 printf 'This script will install some configuration.\n'
 printf 'Some files may be overwritten!\n'
-printf 'Check the script before you run it!\n\n'
+printf 'FULLY Check the script before you run it!\n\n'
 printf 'Ctrl+C to exit. Enter to continue.\n'
 read -r
 }
@@ -40,6 +40,7 @@ case $deptest in false) echo "Dependency test failed, aborting..."; exit 1 ;; es
 echo "Processing configuration files."
 mkdir -p ~/{.cache,.config,.local/{share,bin}}
 rsync -av --del {$H,$HOME}/.config/vifm/
+mv $HOME/.vifm{,.backup} || sleep 0
 rsync -av --del {$H,$HOME}/.config/nvim/
 rsync -av --del {$H,$HOME}/.local/share/ohmyzsh/
 rsync -av --del {$H,$HOME}/.local/share/p10k/
