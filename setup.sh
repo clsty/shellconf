@@ -13,7 +13,7 @@ checkcommand (){
   if ! command -v $1 >/dev/null 2>&1
 then
     echo "Error: \"$1\" could not be found, please install it first."
-    exit 1
+    deptest=false
 fi
 }
 
@@ -30,7 +30,11 @@ H=$(pwd)/home
 
 
 echo "Checking dependencies."
-for i in zsh nvim screen vifm;do checkcommand $i; done
+deps=(zsh nvim screen vifm)
+deptest=true
+for i in ${deps[@]};do checkcommand $i; done
+case $deptest in false) echo "Dependency test failed, aborting..."; exit 1 ;; esac
+
 
 
 echo "Processing configuration files."
