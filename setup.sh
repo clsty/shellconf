@@ -30,7 +30,7 @@ H=$(pwd)/home
 
 
 echo "Checking dependencies."
-deps=(zsh nvim screen vifm)
+deps=(zsh rsync nvim screen vifm)
 deptest=true
 for i in ${deps[@]};do checkcommand $i; done
 case $deptest in false) echo "Dependency test failed, aborting..."; exit 1 ;; esac
